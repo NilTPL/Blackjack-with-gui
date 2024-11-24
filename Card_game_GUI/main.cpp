@@ -16,7 +16,7 @@ int main()
 	
 	
 	sf::Font consolasFont;
-	consolasFont.loadFromFile("fonts/Consolas.ttf");
+	consolasFont.loadFromFile("assets/fonts/Consolas.ttf");
 	
 	sf::Text startText("words on a screen", consolasFont, 32);
 	startText.setOrigin(sf::Vector2f(sf::Vector2i(startText.getLocalBounds().getSize() / 2.f + startText.getLocalBounds().getPosition())));
