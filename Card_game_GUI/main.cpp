@@ -14,13 +14,30 @@ int main()
 	settings.antialiasingLevel = 8;
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Blackjack in C++", sf::Style::Titlebar | sf::Style::Close, settings);
 	
-	
+	//Text
 	sf::Font consolasFont;
 	consolasFont.loadFromFile("assets/fonts/Consolas.ttf");
 	
 	sf::Text startText("words on a screen", consolasFont, 32);
+	startText.setFillColor(sf::Color(255, 0, 0));
+	startText.setOutlineThickness(2.f);
+	startText.setOutlineColor(sf::Color(0, 0, 0));
 	startText.setOrigin(sf::Vector2f(sf::Vector2i(startText.getLocalBounds().getSize() / 2.f + startText.getLocalBounds().getPosition())));
 	startText.setPosition(sf::Vector2f(sf::Vector2i(window.getView().getSize() / 2.f)));
+	
+
+	sf::Texture cardTexture;
+	sf::Sprite cardSprite;
+	if (cardTexture.loadFromFile("assets/textures/cards/CardsClubs.png"))
+	{
+		cardSprite.setTexture(cardTexture);
+		int XIndex = 0;
+		int YIndex = 0;
+		// 0, 0 -> Ace
+
+		cardSprite.setTextureRect(sf::IntRect(XIndex * 88, YIndex * 124, 88, 124));
+		cardSprite.scale(1, 1);
+	}
 
 
 	//main loop
@@ -33,6 +50,7 @@ int main()
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
+
 			if (event.type == sf::Event::Closed)
 				window.close();
 			else if (event.type == sf::Keyboard::Escape)
@@ -47,11 +65,16 @@ int main()
 				}
 			}
 		}
+		//change card
+
+
+
 		// ^ UPDATE
 
 		//DRAW
-		window.clear(sf::Color(20, 30, 50));
+		window.clear(sf::Color(21, 61, 39));
 		window.draw(startText);
+		window.draw(cardSprite);
 		window.display();
 
 	}
