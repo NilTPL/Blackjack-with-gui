@@ -6,7 +6,20 @@ Card::Card(Ranks RANK, Suits SUIT)
     : Rank(RANK),
     Suit(SUIT)
 {
-    //a
+    int XIndex = 0;
+    int YIndex = 0;
+    switch (GetSuit()) {
+    case HEARTS:
+        cardTexture.loadFromFile("assets/textures/cards/CardsHearts.png");
+    case CLUBS:
+        cardTexture.loadFromFile("assets/textures/cards/CardsClubs.png");
+    case DIAMONDS:
+        cardTexture.loadFromFile("assets/textures/cards/CardsDiamonds.png");
+    case SPADES:
+        cardTexture.loadFromFile("assets/textures/cards/CardsSpades.png");
+    }
+
+    cardSprite.setTexture(cardTexture);
 }
 
 Card::~Card()

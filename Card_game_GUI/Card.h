@@ -36,6 +36,11 @@ public:
 	virtual int GetFaceValue();
 
 	void Print();
+	
+	sf::Texture cardTexture;
+	sf::Sprite cardSprite;
+	int XIndex = 0;
+	int YIndex = 0;
 
 private:
 	Ranks Rank;
