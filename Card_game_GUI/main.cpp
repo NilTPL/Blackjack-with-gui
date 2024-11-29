@@ -24,8 +24,10 @@ int main()
 	startText.setOutlineColor(sf::Color(0, 0, 0));
 	startText.setOrigin(sf::Vector2f(sf::Vector2i(startText.getLocalBounds().getSize() / 2.f + startText.getLocalBounds().getPosition())));
 	startText.setPosition(sf::Vector2f(sf::Vector2i(window.getView().getSize() / 2.f)));
-	
 
+	int XIndex = 0;
+	int YIndex = 0;
+	bool moving = false;
 	sf::Texture cardTexture;
 	sf::Sprite cardSprite;
 	if (cardTexture.loadFromFile("assets/textures/cards/CardsClubs.png"))
@@ -37,6 +39,8 @@ int main()
 
 		cardSprite.setTextureRect(sf::IntRect(XIndex * 88, YIndex * 124, 88, 124));
 		cardSprite.scale(1, 1);
+		cardSprite.setOrigin(sf::Vector2f(cardSprite.getLocalBounds().getSize() / 2.f));
+		cardSprite.setPosition(100, 100);
 	}
 
 
@@ -56,18 +60,25 @@ int main()
 			else if (event.type == sf::Keyboard::Escape)
 				window.close();
 			else if (event.type == sf::Event::MouseButtonPressed)
-			{
+			{	
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					if (startText.getGlobalBounds().contains(mouseWorldPosition)) {
 						std::cout << "start \n";
 					}
+					if (cardSprite.getGlobalBounds().contains(mouseWorldPosition)) {
+						if (moving == true)
+							moving = false;
+						else if (moving == false)
+							moving = true;
+					}
 				}
 			}
 		}
-		//change card
-
-
+		if (moving == true)
+		{
+			cardSprite.setPosition(mouseWorldPosition);
+		}
 
 		// ^ UPDATE
 
