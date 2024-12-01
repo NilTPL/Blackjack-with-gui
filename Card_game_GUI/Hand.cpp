@@ -3,10 +3,10 @@
 #include <iostream>
 #include "Deck.h"
 
-Hand::Hand()
+Hand::Hand(Deck& deck)
 	: hand()
 {
-	std::deque<Card*> deck = deck;
+	std::deque<Card> usingDeck = deck.GetDeck();
 }
 
 Hand::~Hand()
@@ -38,9 +38,27 @@ void Hand::Print()
 	}
 }
 
-void Hand::Grab(std::deque<Card>& deck)
+void Hand::Grab(Deck& deck)
 {
-	hand.emplace_front(deck.front());
-	
+	deck.cardsTakenOut++;
+	if (deck.cardsTakenOut == 52)
+	{
+		deck.Shuffle();
+		deck.cardsTakenOut = 0;
+	}
+	if (!deck.GetDeck().empty()) {
+		hand.emplace_front(deck.TopCard());
+		deck.PopCard();
+	}
+	if (deck.GetDeck().empty())
+	{
+		std::cout << "deck empty";
+	}
 }
-
+void drawTo(sf::RenderWindow& window, Hand& hand)
+{
+	for (Card& card : hand.GetHand())
+	{
+		window.draw(card.cardSprite);
+	}
+}

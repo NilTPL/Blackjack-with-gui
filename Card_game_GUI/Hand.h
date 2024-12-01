@@ -2,17 +2,18 @@
 
 #include <deque>
 #include "Card.h"
+#include "Deck.h"
 
 class Hand
 {
 public:
-	Hand();
+	Hand(Deck& deck);
 	~Hand();
 
 	std::deque<Card>& GetHand();
 	void Print();
-	void Grab(std::deque<Card>& deck);
+	void Grab(Deck& deck);
 	int Values();
-private:
 	std::deque<Card> hand;
+private:
 };

@@ -11,15 +11,24 @@ Card::Card(Ranks RANK, Suits SUIT)
     switch (GetSuit()) {
     case HEARTS:
         cardTexture.loadFromFile("assets/textures/cards/CardsHearts.png");
+        break;
     case CLUBS:
         cardTexture.loadFromFile("assets/textures/cards/CardsClubs.png");
+        break;
     case DIAMONDS:
         cardTexture.loadFromFile("assets/textures/cards/CardsDiamonds.png");
+        break;
     case SPADES:
         cardTexture.loadFromFile("assets/textures/cards/CardsSpades.png");
+        break;
     }
 
     cardSprite.setTexture(cardTexture);
+    XIndex = (GetRank() - 1);
+
+    cardSprite.setTextureRect(sf::IntRect(XIndex * 88, YIndex * 124, 88, 124));
+    cardSprite.scale(1, 1);
+    cardSprite.setPosition(0, 0);
 }
 
 Card::~Card()
@@ -39,7 +48,7 @@ Card::Suits Card::GetSuit()
 
 int Card::GetFaceValue()
 {
-    if (Rank <= TEN)
+    if (Rank <= TEN && Rank >= TWO)
         return static_cast<int>(Rank);
 
     if (Rank >= JACK && Rank < ACE)
@@ -50,7 +59,7 @@ int Card::GetFaceValue()
 
 void Card::Print()
 {
-    if (Rank <= TEN)
+    if (Rank <= TEN && Rank >= TWO)
         std::cout << Rank;
     else if (Rank == JACK)
         std::cout << "J";
@@ -69,3 +78,33 @@ void Card::Print()
     else if (Suit == SPADES)
         std::cout << static_cast<char>(6);
 }
+
+/*
+    if (cardTexture.loadFromFile("assets/textures/cards/CardsClubs.png"))
+    {
+        cardSprite.setTexture(cardTexture);
+        int XIndex = 0;
+        int YIndex = 0;
+        // 0, 0 -> Ace
+
+        cardSprite.setTextureRect(sf::IntRect(XIndex * 88, YIndex * 124, 88, 124));
+        cardSprite.scale(1, 1);
+        cardSprite.setOrigin(sf::Vector2f(cardSprite.getLocalBounds().getSize() / 2.f));
+        cardSprite.setPosition(100, 100);
+    }
+*/
+
+/*
+if (cardSprite.getGlobalBounds().contains(mouseWorldPosition)) {
+                        if (moving == true)
+                            moving = false;
+                        else if (moving == false)
+                            moving = true;
+                    }
+*/
+
+/*
+if (moving == true)
+        {
+            cardSprite.setPosition(mouseWorldPosition);
+        }*/

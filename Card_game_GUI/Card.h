@@ -3,6 +3,7 @@
 class Card
 {
 public:
+	//Variables
 	enum Suits
 	{
 		HEARTS = 3,
@@ -12,7 +13,8 @@ public:
 	};
 	enum Ranks
 	{
-		TWO = 2,
+		ACE = 1,
+		TWO,
 		THREE,
 		FOUR,
 		FIVE,
@@ -24,9 +26,16 @@ public:
 		JACK,
 		QUEEN,
 		KING,
-		ACE
 	};
+	sf::Texture cardTexture;
+	sf::Sprite cardSprite;
+	int XIndex = 0;
+	int YIndex = 0;
+	bool moving = false;
+	//Variables
 
+
+	//Functions
 	Card(Ranks RANK, Suits SUIT);
 	virtual ~Card();
 
@@ -34,14 +43,9 @@ public:
 	Suits GetSuit();
 
 	virtual int GetFaceValue();
-
 	void Print();
-	
-	sf::Texture cardTexture;
-	sf::Sprite cardSprite;
-	int XIndex = 0;
-	int YIndex = 0;
 
+	//Functions
 private:
 	Ranks Rank;
 	Suits Suit;

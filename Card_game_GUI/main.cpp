@@ -1,4 +1,7 @@
 ﻿#include "stdafx.h"
+#include "Hand.h"
+#include "Deck.h"
+#include "Button.h"
 #include <iostream>
 
 
@@ -9,39 +12,36 @@ int main()
 	//Init srand
 	std::srand(time(nullptr));
 
+	//Init irl objects (Deck, Hand)
+	Deck gameDeck;
+	Hand playerHand(gameDeck);
+	Hand dealerHand(gameDeck);
+	gameDeck.Shuffle();
+	dealerHand.Grab(gameDeck);
+
+
+	sf::RectangleShape boxContainingButtons(sf::Vector2f(266, 200));
+	boxContainingButtons.setOrigin(boxContainingButtons.getLocalBounds().getSize() + boxContainingButtons.getPosition());
+	boxContainingButtons.setPosition(800, 600);
+	boxContainingButtons.setFillColor(sf::Color(30, 30, 30));
+	std::cout << boxContainingButtons.getSize().x;
+
+	sf::Font consolasFont;
+	consolasFont.loadFromFile("assets/fonts/Consolas.ttf");
+	Button hitButton("Hit");
+	hitButton.setFont(consolasFont);
+	hitButton.setButtonSize();
+	hitButton.setPosition(sf::Vector2f(800 - 266, 600 - 200));
+	Button standButton("Stand");
+	standButton.setFont(consolasFont);
+	standButton.setButtonSize();
+	standButton.setPosition(sf::Vector2f(800 - standButton.button.getLocalBounds().getSize().x, 600 - 200));
+
 	//init rest
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Blackjack in C++", sf::Style::Titlebar | sf::Style::Close, settings);
 	
-	//Text
-	sf::Font consolasFont;
-	consolasFont.loadFromFile("assets/fonts/Consolas.ttf");
-	
-	sf::Text startText("words on a screen", consolasFont, 32);
-	startText.setFillColor(sf::Color(255, 0, 0));
-	startText.setOutlineThickness(2.f);
-	startText.setOutlineColor(sf::Color(0, 0, 0));
-	startText.setOrigin(sf::Vector2f(sf::Vector2i(startText.getLocalBounds().getSize() / 2.f + startText.getLocalBounds().getPosition())));
-	startText.setPosition(sf::Vector2f(sf::Vector2i(window.getView().getSize() / 2.f)));
-
-	int XIndex = 0;
-	int YIndex = 0;
-	bool moving = false;
-	sf::Texture cardTexture;
-	sf::Sprite cardSprite;
-	if (cardTexture.loadFromFile("assets/textures/cards/CardsClubs.png"))
-	{
-		cardSprite.setTexture(cardTexture);
-		int XIndex = 0;
-		int YIndex = 0;
-		// 0, 0 -> Ace
-
-		cardSprite.setTextureRect(sf::IntRect(XIndex * 88, YIndex * 124, 88, 124));
-		cardSprite.scale(1, 1);
-		cardSprite.setOrigin(sf::Vector2f(cardSprite.getLocalBounds().getSize() / 2.f));
-		cardSprite.setPosition(100, 100);
-	}
 
 
 	//main loop
@@ -63,29 +63,48 @@ int main()
 			{	
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
-					if (startText.getGlobalBounds().contains(mouseWorldPosition)) {
-						std::cout << "start \n";
-					}
-					if (cardSprite.getGlobalBounds().contains(mouseWorldPosition)) {
-						if (moving == true)
-							moving = false;
-						else if (moving == false)
-							moving = true;
+					if (hitButton.isMouseOver(window))
+					{
+						playerHand.Grab(gameDeck);
+						dealerHand.Grab(gameDeck);
+						for (int i = 0; i < playerHand.GetHand().size(); i++)
+						{
+							playerHand.GetHand().at(i).cardSprite.setPosition(10, 600 - 144);
+							playerHand.GetHand().at(i).cardSprite.setPosition(sf::Vector2f(playerHand.GetHand().at(i).cardSprite.getPosition() + sf::Vector2f(playerHand.GetHand().at(i).cardSprite.getGlobalBounds().getSize().x * i / 4, 0)));
+						}
 					}
 				}
 			}
+			// ^^^^ EVENTED
+			/// Eventless \/\/\/\/\/
+			for (int i = 0; i < dealerHand.GetHand().size(); i++)
+			{
+				dealerHand.GetHand().at(i).cardSprite.setPosition(10, 10);
+				dealerHand.GetHand().at(i).cardSprite.setPosition(sf::Vector2f(dealerHand.GetHand().at(i).cardSprite.getPosition() + sf::Vector2f(dealerHand.GetHand().at(i).cardSprite.getGlobalBounds().getSize().x * i / 4, 0)));
+			}
 		}
-		if (moving == true)
-		{
-			cardSprite.setPosition(mouseWorldPosition);
-		}
+		
+		
 
 		// ^ UPDATE
 
 		//DRAW
 		window.clear(sf::Color(21, 61, 39));
-		window.draw(startText);
-		window.draw(cardSprite);
+		
+		
+		//window.draw(startText);
+		//window.draw(cardSprite);
+		window.draw(boxContainingButtons);
+		hitButton.drawTo(window);
+		standButton.drawTo(window);
+		for (Card card : playerHand.GetHand())
+		{
+			window.draw(card.cardSprite);
+		}
+		for (Card card : dealerHand.GetHand())
+		{
+			window.draw(card.cardSprite);
+		}
 		window.display();
 
 	}

@@ -16,6 +16,9 @@ public:
 	
 	Card TopCard();
 	void PopCard();
+
+	int cardsTakenOut;
+
+	std::deque<Card> deckDeque;
 private:
-	std::deque<Card> deck;
 };

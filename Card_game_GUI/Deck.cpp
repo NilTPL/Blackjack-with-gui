@@ -4,30 +4,31 @@
 #include <iostream>
 
 Deck::Deck()
-	: deck()
+	: deckDeque()
 {
-	for (Card::Ranks r = Card::TWO; r <= Card::ACE; r = static_cast<Card::Ranks>(static_cast<int>(r) + 1))
+	for (Card::Ranks r = Card::ACE; r <= Card::KING; r = static_cast<Card::Ranks>(static_cast<int>(r) + 1))
 	{
 		for (Card::Suits s = Card::HEARTS; s <= Card::SPADES; s = static_cast<Card::Suits>(static_cast<int>(s) + 1))
 		{
-			deck.emplace_front(r, s);
+			deckDeque.emplace_front(r, s);
 		}
 	}
+	int cardsTakenOut = 0;
 }
 
 Deck::~Deck()
 {
-	deck.clear();
+	deckDeque.clear();
 }
 
 std::deque<Card>& Deck::GetDeck() 
 { 
-	return deck; 
+	return deckDeque; 
 }
 
 void Deck::Print()
 {
-	for (Card card : deck)
+	for (Card card : deckDeque)
 	{
 		card.Print();
 		std::cout << " ";
@@ -36,16 +37,16 @@ void Deck::Print()
 
 void Deck::Shuffle()
 {
-	std::random_shuffle(deck.begin(), deck.end());
+	std::random_shuffle(deckDeque.begin(), deckDeque.end());
 }
 
 Card Deck::TopCard()
 {
-	return deck.front();
+	return deckDeque.front();
 }
 
 void Deck::PopCard()
 {
-	deck.push_back(deck.front());
-	deck.pop_front();
+	deckDeque.push_back(deckDeque.front());
+	deckDeque.pop_front();
 }
