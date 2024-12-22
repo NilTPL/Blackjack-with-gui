@@ -26,9 +26,9 @@ Card::Card(Ranks RANK, Suits SUIT)
     cardSprite.setTexture(cardTexture);
     XIndex = (GetRank() - 1);
 
-    cardSprite.setTextureRect(sf::IntRect(XIndex * 88, YIndex * 124, 88, 124));
-    cardSprite.scale(1, 1);
-    cardSprite.setPosition(0, 0);
+    cardSprite.setTextureRect(sf::IntRect({ XIndex * 88, YIndex * 124 }, { 88, 124 }));
+    cardSprite.scale({ 1, 1 });
+    cardSprite.setPosition({ 0, 0 });
 }
 
 Card::~Card()

@@ -21,13 +21,13 @@ int main()
 
 
 	sf::RectangleShape boxContainingButtons(sf::Vector2f(266, 200));
-	boxContainingButtons.setOrigin(boxContainingButtons.getLocalBounds().getSize() + boxContainingButtons.getPosition());
-	boxContainingButtons.setPosition(800, 600);
+	boxContainingButtons.setOrigin(boxContainingButtons.getLocalBounds().size + boxContainingButtons.getPosition());
+	boxContainingButtons.setPosition({ 800, 600 });
 	boxContainingButtons.setFillColor(sf::Color(30, 30, 30));
 	std::cout << boxContainingButtons.getSize().x;
 
-	sf::Font consolasFont;
-	consolasFont.loadFromFile("assets/fonts/Consolas.ttf");
+	sf::Font consolasFont("assets/fonts/Consolas.ttf");
+
 	Button hitButton("Hit");
 	hitButton.setFont(consolasFont);
 	hitButton.setButtonSize();
@@ -35,12 +35,12 @@ int main()
 	Button standButton("Stand");
 	standButton.setFont(consolasFont);
 	standButton.setButtonSize();
-	standButton.setPosition(sf::Vector2f(800 - standButton.button.getLocalBounds().getSize().x, 600 - 200));
+	standButton.setPosition(sf::Vector2f(800 - standButton.button.getLocalBounds().size.x, 600 - 200));
 
 	//init rest
 	sf::ContextSettings settings;
-	settings.antialiasingLevel = 8;
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Blackjack in C++", sf::Style::Titlebar | sf::Style::Close, settings);
+	settings.antiAliasingLevel = 8;
+	sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "Blackjack in C++", sf::Style::Titlebar | sf::Style::Close, sf::State::Windowed, settings);
 	
 
 
@@ -51,7 +51,7 @@ int main()
 		//UPDATE
 		sf::Vector2i mousePixelPosition = sf::Mouse::getPosition(window);
 		sf::Vector2f mouseWorldPosition = window.mapPixelToCoords(mousePixelPosition);
-		sf::Event event;
+		/*sf::Event event;
 		while (window.pollEvent(event))
 		{
 
@@ -60,7 +60,7 @@ int main()
 			else if (event.type == sf::Keyboard::Escape)
 				window.close();
 			else if (event.type == sf::Event::MouseButtonPressed)
-			{	
+			{
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					if (hitButton.isMouseOver(window))
@@ -69,19 +69,19 @@ int main()
 						dealerHand.Grab(gameDeck);
 						for (int i = 0; i < playerHand.GetHand().size(); i++)
 						{
-							playerHand.GetHand().at(i).cardSprite.setPosition(10, 600 - 144);
+							playerHand.GetHand().at(i).cardSprite.setPosition({ 10, 600 - 144 });
 							playerHand.GetHand().at(i).cardSprite.setPosition(sf::Vector2f(playerHand.GetHand().at(i).cardSprite.getPosition() + sf::Vector2f(playerHand.GetHand().at(i).cardSprite.getGlobalBounds().getSize().x * i / 4, 0)));
 						}
 					}
 				}
 			}
 			// ^^^^ EVENTED
-			/// Eventless \/\/\/\/\/
-			for (int i = 0; i < dealerHand.GetHand().size(); i++)
-			{
-				dealerHand.GetHand().at(i).cardSprite.setPosition(10, 10);
-				dealerHand.GetHand().at(i).cardSprite.setPosition(sf::Vector2f(dealerHand.GetHand().at(i).cardSprite.getPosition() + sf::Vector2f(dealerHand.GetHand().at(i).cardSprite.getGlobalBounds().getSize().x * i / 4, 0)));
-			}
+		}*/
+		/// Eventless \/\/\/\/\/
+		for (int i = 0; i < dealerHand.GetHand().size(); i++)
+		{
+			dealerHand.GetHand().at(i).cardSprite.setPosition({ 10, 10 });
+			dealerHand.GetHand().at(i).cardSprite.setPosition(sf::Vector2f(dealerHand.GetHand().at(i).cardSprite.getPosition() + sf::Vector2f(dealerHand.GetHand().at(i).cardSprite.getGlobalBounds().getSize().x * i / 4, 0)));
 		}
 		
 		
