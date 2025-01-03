@@ -4,7 +4,8 @@ class Button
 {
 public:
 	Button();
-	Button(std::string text) {
+	Button(std::string text, const sf::Font& font)
+		: buttonLabel(font){
 		buttonLabel.setString(text);
 		buttonLabel.setFillColor(sf::Color(0, 0, 0));
 		buttonLabel.setCharacterSize(32);

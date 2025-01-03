@@ -28,12 +28,10 @@ int main()
 
 	sf::Font consolasFont("assets/fonts/Consolas.ttf");
 
-	Button hitButton("Hit");
-	hitButton.setFont(consolasFont);
+	Button hitButton("Hit", consolasFont);
 	hitButton.setButtonSize();
 	hitButton.setPosition(sf::Vector2f(800 - 266, 600 - 200));
-	Button standButton("Stand");
-	standButton.setFont(consolasFont);
+	Button standButton("Stand", consolasFont);
 	standButton.setButtonSize();
 	standButton.setPosition(sf::Vector2f(800 - standButton.button.getLocalBounds().size.x, 600 - 200));
 
