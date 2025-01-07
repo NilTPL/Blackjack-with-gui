@@ -37,7 +37,8 @@ void Deck::Print()
 
 void Deck::Shuffle()
 {
-	std::shuffle(deckDeque.begin(), deckDeque.end(), 1); //TODO; make the randomization seed non-hardcoded. 
+	std::mt19937 rng(std::time(nullptr));
+	std::shuffle(deckDeque.begin(), deckDeque.end(), rng);
 }
 
 Card Deck::TopCard()

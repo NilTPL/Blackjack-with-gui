@@ -4,7 +4,7 @@
 
 Card::Card(Ranks RANK, Suits SUIT)
     : Rank(RANK),
-    cardTexture("assets/textures/cards.png"),
+    cardTexture("assets/textures/cards/cards.png"),
     cardSprite(cardTexture),
     Suit(SUIT)
 {

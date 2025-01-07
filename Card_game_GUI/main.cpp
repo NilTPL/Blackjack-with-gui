@@ -24,7 +24,6 @@ int main()
 	boxContainingButtons.setOrigin(boxContainingButtons.getLocalBounds().size + boxContainingButtons.getPosition());
 	boxContainingButtons.setPosition({ 800, 600 });
 	boxContainingButtons.setFillColor(sf::Color(30, 30, 30));
-	std::cout << boxContainingButtons.getSize().x;
 
 	sf::Font consolasFont("assets/fonts/Consolas.ttf");
 
@@ -44,11 +43,27 @@ int main()
 
 	//main loop
 
+	const auto onClose = [&window](const sf::Event::Closed&)
+		{
+			window.close();
+		};
+
+	const auto onKeyPressed = [&window](const sf::Event::KeyPressed& keyPressed)
+		{
+			if (keyPressed.scancode == sf::Keyboard::Scancode::Escape)
+				window.close();
+		};
+
 	while (window.isOpen())
 	{
+		window.handleEvents(onClose, onKeyPressed);
+
 		//UPDATE
 		sf::Vector2i mousePixelPosition = sf::Mouse::getPosition(window);
 		sf::Vector2f mouseWorldPosition = window.mapPixelToCoords(mousePixelPosition);
+		
+		
+		
 		/*sf::Event event;
 		while (window.pollEvent(event))
 		{
