@@ -4,26 +4,12 @@
 
 Card::Card(Ranks RANK, Suits SUIT)
     : Rank(RANK),
+    cardTexture("assets/textures/cards.png"),
+    cardSprite(cardTexture),
     Suit(SUIT)
 {
     int XIndex = 0;
     int YIndex = 0;
-    switch (GetSuit()) {
-    case HEARTS:
-        cardTexture.loadFromFile("assets/textures/cards/CardsHearts.png");
-        break;
-    case CLUBS:
-        cardTexture.loadFromFile("assets/textures/cards/CardsClubs.png");
-        break;
-    case DIAMONDS:
-        cardTexture.loadFromFile("assets/textures/cards/CardsDiamonds.png");
-        break;
-    case SPADES:
-        cardTexture.loadFromFile("assets/textures/cards/CardsSpades.png");
-        break;
-    }
-
-    cardSprite.setTexture(cardTexture);
     XIndex = (GetRank() - 1);
 
     cardSprite.setTextureRect(sf::IntRect({ XIndex * 88, YIndex * 124 }, { 88, 124 }));

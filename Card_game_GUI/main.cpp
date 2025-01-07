@@ -10,7 +10,7 @@
 int main()
 {
 	//Init srand
-	std::srand(time(nullptr));
+	std::srand(time(NULL));
 
 	//Init irl objects (Deck, Hand)
 	Deck gameDeck;
@@ -79,7 +79,7 @@ int main()
 		for (int i = 0; i < dealerHand.GetHand().size(); i++)
 		{
 			dealerHand.GetHand().at(i).cardSprite.setPosition({ 10, 10 });
-			dealerHand.GetHand().at(i).cardSprite.setPosition(sf::Vector2f(dealerHand.GetHand().at(i).cardSprite.getPosition() + sf::Vector2f(dealerHand.GetHand().at(i).cardSprite.getGlobalBounds().getSize().x * i / 4, 0)));
+			dealerHand.GetHand().at(i).cardSprite.setPosition(sf::Vector2f(dealerHand.GetHand().at(i).cardSprite.getPosition() + sf::Vector2f(dealerHand.GetHand().at(i).cardSprite.getGlobalBounds().size.x * i / 4, 0)));
 		}
 		
 		

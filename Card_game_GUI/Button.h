@@ -3,14 +3,12 @@
 class Button 
 {
 public:
-	Button();
 	Button(std::string text, const sf::Font& font)
 		: buttonLabel(font){
 		buttonLabel.setString(text);
 		buttonLabel.setFillColor(sf::Color(0, 0, 0));
 		buttonLabel.setCharacterSize(32);
 	}
-	~Button();
 
 	//Variables
 
@@ -32,15 +30,15 @@ public:
 
 	void setButtonSize()
 	{
-		button.setSize(sf::Vector2f(sf::Vector2i(buttonLabel.getGlobalBounds().getSize() * 1.2f)));
+		button.setSize(sf::Vector2f(sf::Vector2i(buttonLabel.getGlobalBounds().size * 1.2f)));
 	}
 
 	void setPosition(sf::Vector2f pos)
 	{
 		button.setPosition(pos);
 		
-		buttonLabel.setOrigin(sf::Vector2f(sf::Vector2i(buttonLabel.getLocalBounds().getSize() / 2.f + buttonLabel.getLocalBounds().getPosition())));
-		buttonLabel.setPosition(sf::Vector2f(sf::Vector2i(pos + button.getLocalBounds().getSize() / 2.f)));
+		buttonLabel.setOrigin(sf::Vector2f(sf::Vector2i(buttonLabel.getLocalBounds().size / 2.f + buttonLabel.getLocalBounds().position)));
+		buttonLabel.setPosition(sf::Vector2f(sf::Vector2i(pos + button.getLocalBounds().size / 2.f)));
 
 		/*
 		startText.setOrigin(sf::Vector2f(sf::Vector2i(startText.getLocalBounds().getSize() / 2.f + startText.getLocalBounds().getPosition())));
