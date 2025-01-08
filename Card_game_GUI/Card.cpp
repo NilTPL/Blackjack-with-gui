@@ -11,6 +11,7 @@ Card::Card(Ranks RANK, Suits SUIT)
     int XIndex = 0;
     int YIndex = 0;
     XIndex = (GetRank() - 1);
+    YIndex = (GetSuit() - 1);
 
     cardSprite.setTextureRect(sf::IntRect({ XIndex * 88, YIndex * 124 }, { 88, 124 }));
     cardSprite.scale({ 1, 1 });

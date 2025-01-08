@@ -4,7 +4,6 @@
 #include "Button.h"
 #include <iostream>
 
-
 //using namespace sf;
 
 int main()
@@ -43,39 +42,30 @@ int main()
 
 	//main loop
 
-	const auto onClose = [&window](const sf::Event::Closed&)
-		{
-			window.close();
-		};
-
-	const auto onKeyPressed = [&window](const sf::Event::KeyPressed& keyPressed)
-		{
-			if (keyPressed.scancode == sf::Keyboard::Scancode::Escape)
-				window.close();
-		};
 
 	while (window.isOpen())
 	{
-		window.handleEvents(onClose, onKeyPressed);
-
 		//UPDATE
 		sf::Vector2i mousePixelPosition = sf::Mouse::getPosition(window);
 		sf::Vector2f mouseWorldPosition = window.mapPixelToCoords(mousePixelPosition);
-		
-		
-		
-		/*sf::Event event;
-		while (window.pollEvent(event))
-		{
 
-			if (event.type == sf::Event::Closed)
-				window.close();
-			else if (event.type == sf::Keyboard::Escape)
-				window.close();
-			else if (event.type == sf::Event::MouseButtonPressed)
+
+		while (const std::optional event = window.pollEvent())
+		{
+			if (event->is<sf::Event::Closed>())
 			{
-				if (event.mouseButton.button == sf::Mouse::Left)
+				window.close();
+			}
+			else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+			{
+				if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
+					window.close();
+			}
+			else if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
+			{
+				if (mouseButtonPressed->button == sf::Mouse::Button::Left)
 				{
+					std::cout << "mouse1 was pressed at position: " << mouseButtonPressed->position.x << " " << mouseButtonPressed->position.y << std::endl;
 					if (hitButton.isMouseOver(window))
 					{
 						playerHand.Grab(gameDeck);
@@ -83,14 +73,14 @@ int main()
 						for (int i = 0; i < playerHand.GetHand().size(); i++)
 						{
 							playerHand.GetHand().at(i).cardSprite.setPosition({ 10, 600 - 144 });
-							playerHand.GetHand().at(i).cardSprite.setPosition(sf::Vector2f(playerHand.GetHand().at(i).cardSprite.getPosition() + sf::Vector2f(playerHand.GetHand().at(i).cardSprite.getGlobalBounds().getSize().x * i / 4, 0)));
+							playerHand.GetHand().at(i).cardSprite.setPosition(sf::Vector2f(playerHand.GetHand().at(i).cardSprite.getPosition() + sf::Vector2f(playerHand.GetHand().at(i).cardSprite.getGlobalBounds().size.x * i / 4, 0)));
 						}
 					}
 				}
 			}
-			// ^^^^ EVENTED
-		}*/
-		/// Eventless \/\/\/\/\/
+		}
+
+
 		for (int i = 0; i < dealerHand.GetHand().size(); i++)
 		{
 			dealerHand.GetHand().at(i).cardSprite.setPosition({ 10, 10 });

@@ -6,7 +6,7 @@ public:
 	//Variables
 	enum Suits
 	{
-		HEARTS = 3,
+		HEARTS = 1,
 		DIAMONDS,
 		CLUBS,
 		SPADES
