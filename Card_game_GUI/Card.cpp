@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "card.h"
 
-Card::Card(std::string rank, std::string suit, sf::Texture texture) : rank(rank), suit(suit), sprite(texture) {}
+Card::Card(std::string rank, std::string suit, sf::Texture &texture, int rankValue, int suitValue) : rank(rank), suit(suit), sprite(texture), texturePosX(rankValue * 88), texturePosY(suitValue * 144) {}
 
 std::string Card::getRank() const {
     return rank;

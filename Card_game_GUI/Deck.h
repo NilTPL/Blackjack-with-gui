@@ -7,7 +7,7 @@
 
 class Deck {
 public:
-    Deck();
+    Deck(std::string texturePath);
     int getNumCards() const;
     void populate();
     Card drawCard();

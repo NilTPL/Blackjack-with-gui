@@ -4,7 +4,7 @@
 #include <algorithm>
 
 // Seed randomness for later shuffle using system time
-Deck::Deck() : seed(std::chrono::system_clock::now().time_since_epoch().count()), e(seed), texture("assets/textures/cards/Back-TopDown-single.png") {
+Deck::Deck(std::string texturePath) : seed(std::chrono::system_clock::now().time_since_epoch().count()), e(seed), texture(texturePath) {
 
 }
 
@@ -17,14 +17,14 @@ void Deck::populate() {
     std::vector<std::string> ranks = {
       "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"
     };
-    std::string suits[] = {
+    std::vector<std::string> suits = {
         "Diamonds", "Hearts", "Clubs", "Spades"
     };
 
     // Populate deck
-    for (const auto& rank : ranks) {
-        for (const auto& suit : suits) {
-            deck.emplace_back(rank, suit);
+    for (int i = 0; i <= ranks.size(); i++) {
+        for (int j = 0; j <= suits.size(); j++) {
+            deck.emplace_back(ranks.at(i), suits.at(j), texture, i, j);
         }
     }
 }

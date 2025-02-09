@@ -10,7 +10,7 @@ int main()
 {
 
 	//Init irl objects (Deck, etc.)
-	Deck deck;
+	Deck deck("assets/textures/cards/cards.png");
 	deck.populate();
 	deck.shuffle();
 
