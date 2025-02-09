@@ -1,24 +1,24 @@
-#pragma once
+#ifndef DECK_H
+#define DECK_H
 
-#include <deque>
-#include "Card.h"
+#include "card.h"
+#include <vector>
+#include <random>
 
-class Deck
-{
+class Deck {
 public:
-	Deck();
-	~Deck();
-
-
-	std::deque<Card>& GetDeck();
-	void Print();
-	void Shuffle();
-	
-	Card TopCard();
-	void PopCard();
-
-	int cardsTakenOut;
-
-	std::deque<Card> deckDeque;
+    Deck();
+    int getNumCards() const;
+    void populate();
+    Card drawCard();
+    void addCard(Card card);
+    void shuffle();
+    virtual ~Deck();
+    sf::Texture texture;
 private:
+    std::vector<Card> deck;
+    unsigned int seed;
+    std::default_random_engine e;
 };
+
+#endif // DECK_H

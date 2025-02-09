@@ -1,52 +1,22 @@
-#pragma once
+#ifndef CARD_H
+#define CARD_H
 
-class Card
-{
+#include <string>
+
+class Card {
 public:
-	//Variables
-	enum Suits
-	{
-		HEARTS = 1,
-		DIAMONDS,
-		CLUBS,
-		SPADES
-	};
-	enum Ranks
-	{
-		ACE = 1,
-		TWO,
-		THREE,
-		FOUR,
-		FIVE,
-		SIX,
-		SEVEN,
-		EIGHT,
-		NINE,
-		TEN,
-		JACK,
-		QUEEN,
-		KING,
-	};
-	sf::Texture cardTexture;
-	sf::Sprite cardSprite;
-	int XIndex = 0;
-	int YIndex = 0;
-	bool moving = false;
-	//Variables
-
-
-	//Functions
-	Card(Ranks RANK, Suits SUIT);
-	virtual ~Card();
-
-	Ranks GetRank();
-	Suits GetSuit();
-
-	virtual int GetFaceValue();
-	void Print();
-
-	//Functions
+    Card(std::string rank, std::string suit, sf::Texture texture);
+    std::string getRank() const;
+    std::string getSuit() const;
+    std::string toString() const;
+    virtual ~Card();
 private:
-	Ranks Rank;
-	Suits Suit;
+    std::string rank;
+    std::string suit;
+    //int textureIndexX;
+    //int textureIndexY;
+public:
+    sf::Sprite sprite;
 };
+
+#endif // CARD_H

@@ -1,19 +1,20 @@
-#pragma once
+#ifndef HAND_H
+#define HAND_H
 
-#include <deque>
 #include "Card.h"
 #include "Deck.h"
+#include <vector>
 
-class Hand
-{
+class Hand {
 public:
-	Hand(Deck& deck);
-	~Hand();
+    Hand();
 
-	std::deque<Card>& GetHand();
-	void Print();
-	void Grab(Deck& deck);
-	int Values();
-	std::deque<Card> hand;
+    void grabCard(Deck deck);
+    std::vector<Card> getHand();
+
+    virtual ~Hand();
 private:
+    std::vector<Card> hand;
 };
+
+#endif // DECK_H

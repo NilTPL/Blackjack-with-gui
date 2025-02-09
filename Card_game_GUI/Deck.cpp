@@ -1,53 +1,54 @@
 #include "stdafx.h"
-#include "Deck.h"
+#include "deck.h"
+#include <chrono>
 #include <algorithm>
-#include <iostream>
 
-Deck::Deck()
-	: deckDeque()
-{
-	for (Card::Ranks r = Card::ACE; r <= Card::KING; r = static_cast<Card::Ranks>(static_cast<int>(r) + 1))
-	{
-		for (Card::Suits s = Card::HEARTS; s <= Card::SPADES; s = static_cast<Card::Suits>(static_cast<int>(s) + 1))
-		{
-			deckDeque.emplace_front(r, s);
-		}
-	}
-	int cardsTakenOut = 0;
+// Seed randomness for later shuffle using system time
+Deck::Deck() : seed(std::chrono::system_clock::now().time_since_epoch().count()), e(seed), texture("assets/textures/cards/Back-TopDown-single.png") {
+
 }
 
-Deck::~Deck()
-{
-	deckDeque.clear();
+/*
+    Fill the deck with the default 52-card deck,
+    shorten the deck from the low side (positive value)
+    or from the high side (negative value),
+*/
+void Deck::populate() {
+    std::vector<std::string> ranks = {
+      "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"
+    };
+    std::string suits[] = {
+        "Diamonds", "Hearts", "Clubs", "Spades"
+    };
+
+    // Populate deck
+    for (const auto& rank : ranks) {
+        for (const auto& suit : suits) {
+            deck.emplace_back(rank, suit);
+        }
+    }
 }
 
-std::deque<Card>& Deck::GetDeck() 
-{ 
-	return deckDeque; 
+// Take card from the back of the vector
+Card Deck::drawCard() {
+    Card card = deck.back();
+    deck.pop_back();
+    return card;
 }
 
-void Deck::Print()
-{
-	for (Card card : deckDeque)
-	{
-		card.Print();
-		std::cout << " ";
-	}
+// Add card to the back of the vector
+void Deck::addCard(Card card) {
+    deck.push_back(card);
 }
 
-void Deck::Shuffle()
-{
-	std::mt19937 rng(std::time(nullptr));
-	std::shuffle(deckDeque.begin(), deckDeque.end(), rng);
+int Deck::getNumCards() const {
+    return deck.size();
 }
 
-Card Deck::TopCard()
-{
-	return deckDeque.front();
+void Deck::shuffle() {
+    std::shuffle(deck.begin(), deck.end(), e);
 }
 
-void Deck::PopCard()
-{
-	deckDeque.push_back(deckDeque.front());
-	deckDeque.pop_front();
+Deck::~Deck() {
+
 }

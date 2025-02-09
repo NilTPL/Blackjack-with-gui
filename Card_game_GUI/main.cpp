@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
-#include "Hand.h"
 #include "Deck.h"
+#include "Hand.h"
 #include "Button.h"
 #include <iostream>
 
@@ -8,15 +8,13 @@
 
 int main()
 {
-	//Init srand
-	std::srand(time(NULL));
 
-	//Init irl objects (Deck, Hand)
-	Deck gameDeck;
-	Hand playerHand(gameDeck);
-	Hand dealerHand(gameDeck);
-	gameDeck.Shuffle();
-	dealerHand.Grab(gameDeck);
+	//Init irl objects (Deck, etc.)
+	Deck deck;
+	deck.populate();
+	deck.shuffle();
+
+	Hand hand;
 
 
 	sf::RectangleShape boxContainingButtons(sf::Vector2f(266, 200));
@@ -65,26 +63,18 @@ int main()
 			{
 				if (mouseButtonPressed->button == sf::Mouse::Button::Left)
 				{
-					std::cout << "mouse1 was pressed at position: " << mouseButtonPressed->position.x << " " << mouseButtonPressed->position.y << std::endl;
 					if (hitButton.isMouseOver(window))
 					{
-						playerHand.Grab(gameDeck);
-						dealerHand.Grab(gameDeck);
-						for (int i = 0; i < playerHand.GetHand().size(); i++)
-						{
-							playerHand.GetHand().at(i).cardSprite.setPosition({ 10, 600 - 144 });
-							playerHand.GetHand().at(i).cardSprite.setPosition(sf::Vector2f(playerHand.GetHand().at(i).cardSprite.getPosition() + sf::Vector2f(playerHand.GetHand().at(i).cardSprite.getGlobalBounds().size.x * i / 4, 0)));
-						}
+						std::cout << "Hit me! " << std::endl;
+						hand.grabCard(deck);
 					}
+					else if (standButton.isMouseOver(window))
+					{
+						std::cout << "Stand..." << std::endl;
+					}
+					else { std::cout << "mouse1 was pressed at position: " << mouseButtonPressed->position.x << " " << mouseButtonPressed->position.y << std::endl; }
 				}
 			}
-		}
-
-
-		for (int i = 0; i < dealerHand.GetHand().size(); i++)
-		{
-			dealerHand.GetHand().at(i).cardSprite.setPosition({ 10, 10 });
-			dealerHand.GetHand().at(i).cardSprite.setPosition(sf::Vector2f(dealerHand.GetHand().at(i).cardSprite.getPosition() + sf::Vector2f(dealerHand.GetHand().at(i).cardSprite.getGlobalBounds().size.x * i / 4, 0)));
 		}
 		
 		
@@ -94,20 +84,15 @@ int main()
 		//DRAW
 		window.clear(sf::Color(21, 61, 39));
 		
-		
-		//window.draw(startText);
-		//window.draw(cardSprite);
 		window.draw(boxContainingButtons);
 		hitButton.drawTo(window);
 		standButton.drawTo(window);
-		for (Card card : playerHand.GetHand())
+		for (int i = 0; i < hand.getHand().size(); i++)
 		{
-			window.draw(card.cardSprite);
+			hand.getHand().at(i).sprite.setPosition(hand.getHand().at(i).sprite.getPosition() + sf::Vector2f{80.f * i, 20.f});
+			window.draw(hand.getHand().at(i).sprite);
 		}
-		for (Card card : dealerHand.GetHand())
-		{
-			window.draw(card.cardSprite);
-		}
+
 		window.display();
 
 	}
