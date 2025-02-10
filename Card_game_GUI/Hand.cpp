@@ -7,12 +7,12 @@ Hand::Hand()
 {
 }
 
-void Hand::grabCard(Deck deck)
+void Hand::grabCard(Deck& deck)
 {
 	hand.emplace_back(deck.drawCard());
 }
 
-std::vector<Card> Hand::getHand()
+std::vector<Card>& Hand::getHand()
 {
 	return hand;
 }

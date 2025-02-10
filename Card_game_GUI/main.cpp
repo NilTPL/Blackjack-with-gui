@@ -65,7 +65,7 @@ int main()
 				{
 					if (hitButton.isMouseOver(window))
 					{
-						std::cout << "Hit me! " << std::endl;
+						std::cout << "Hitting has bestowed upon you:  " << deck.currentCard().toString() << std::endl;
 						hand.grabCard(deck);
 					}
 					else if (standButton.isMouseOver(window))
@@ -89,8 +89,9 @@ int main()
 		standButton.drawTo(window);
 		for (int i = 0; i < hand.getHand().size(); i++)
 		{
-			hand.getHand().at(i).sprite.setPosition(hand.getHand().at(i).sprite.getPosition() + sf::Vector2f{80.f * i, 20.f});
-			window.draw(hand.getHand().at(i).sprite);
+			Card& card = hand.getHand().at(i);
+			card.sprite.setPosition({(card.sprite.getLocalBounds().size.x / 2 * i ), 20.f});
+			window.draw(card.sprite);
 		}
 
 		window.display();

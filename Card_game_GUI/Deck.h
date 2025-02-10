@@ -11,6 +11,7 @@ public:
     int getNumCards() const;
     void populate();
     Card drawCard();
+    Card currentCard();
     void addCard(Card card);
     void shuffle();
     virtual ~Deck();

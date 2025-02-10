@@ -9,8 +9,8 @@ class Hand {
 public:
     Hand();
 
-    void grabCard(Deck deck);
-    std::vector<Card> getHand();
+    void grabCard(Deck& deck);
+    std::vector<Card>& getHand();
 
     virtual ~Hand();
 private:
