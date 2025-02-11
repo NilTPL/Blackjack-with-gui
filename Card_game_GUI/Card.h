@@ -7,6 +7,7 @@ class Card {
 public:
     Card(std::string rank, std::string suit, sf::Texture& texture, int rankValue, int suitValue);
     std::string getRank() const;
+    int getValue();
     std::string getSuit() const;
     std::string toString() const;
     virtual ~Card();

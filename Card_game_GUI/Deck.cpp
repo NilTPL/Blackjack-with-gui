@@ -31,6 +31,13 @@ void Deck::populate() {
 
 // Take card from the back of the vector
 Card Deck::drawCard() {
+
+    if (getNumCards() < 1)
+    {
+        populate();
+        shuffle();
+    }
+
     Card card = deck.back();
     deck.pop_back();
     return card;
@@ -53,6 +60,16 @@ void Deck::shuffle() {
     std::shuffle(deck.begin(), deck.end(), e);
 }
 
+int Deck::getCardValues()
+{
+    for (Card& card : deck)
+    {
+        totalValue += card.getValue();
+    }
+    return totalValue;
+}
+
 Deck::~Deck() {
 
 }
+

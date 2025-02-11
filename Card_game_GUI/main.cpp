@@ -1,20 +1,26 @@
 ﻿#include "stdafx.h"
 #include "Deck.h"
 #include "Hand.h"
+#include "character.h"
 #include "Button.h"
 #include <iostream>
 
+#include <Windows.h>
+#include <stdio.h>
+
 //using namespace sf;
+
+std::string texturePath = "assets/textures/cards/cards.png";
 
 int main()
 {
 
 	//Init irl objects (Deck, etc.)
-	Deck deck("assets/textures/cards/cards.png");
+	Deck deck(texturePath);
 	deck.populate();
 	deck.shuffle();
 
-	Hand hand;
+	Character player;
 
 
 	sf::RectangleShape boxContainingButtons(sf::Vector2f(266, 200));
@@ -65,8 +71,15 @@ int main()
 				{
 					if (hitButton.isMouseOver(window))
 					{
+						system("cls");
 						std::cout << "Hitting has bestowed upon you:  " << deck.currentCard().toString() << std::endl;
-						hand.grabCard(deck);
+						player.hand.grabCard(deck);
+						std::cout << "------- \n";
+						std::cout << "Your hand is now: ";
+						for (Card& card : player.hand.getHand())
+						{
+							std::cout << card.toString() << ", ";
+						}
 					}
 					else if (standButton.isMouseOver(window))
 					{
@@ -79,6 +92,7 @@ int main()
 		
 		
 
+
 		// ^ UPDATE
 
 		//DRAW
@@ -87,9 +101,9 @@ int main()
 		window.draw(boxContainingButtons);
 		hitButton.drawTo(window);
 		standButton.drawTo(window);
-		for (int i = 0; i < hand.getHand().size(); i++)
+		for (int i = 0; i < player.hand.getHand().size(); i++)
 		{
-			Card& card = hand.getHand().at(i);
+			Card& card = player.hand.getHand().at(i);
 			card.sprite.setPosition({(card.sprite.getLocalBounds().size.x / 2 * i ), 20.f});
 			window.draw(card.sprite);
 		}

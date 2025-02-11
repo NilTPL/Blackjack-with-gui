@@ -15,11 +15,13 @@ public:
     void addCard(Card card);
     void shuffle();
     virtual ~Deck();
+    int getCardValues();
     sf::Texture texture;
 private:
     std::vector<Card> deck;
     unsigned int seed;
     std::default_random_engine e;
+    int totalValue = 0;
 };
 
 #endif // DECK_H

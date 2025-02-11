@@ -18,6 +18,10 @@ std::string Card::toString() const {
     return "The " + rank + " of " + suit;
 }
 
+int Card::getValue() {
+    return rankValue;
+}
+
 Card::~Card() {
 
 }
