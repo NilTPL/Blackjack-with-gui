@@ -11,7 +11,7 @@ public:
 
     void grabCard(Deck& deck);
     std::vector<Card>& getHand();
-
+    sf::Vector2f pos;
     virtual ~Hand();
 private:
     std::vector<Card> hand;

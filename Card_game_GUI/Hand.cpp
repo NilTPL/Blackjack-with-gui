@@ -3,7 +3,7 @@
 #include "Deck.h"
 #include "Hand.h"
 
-Hand::Hand()
+Hand::Hand() : pos(0, 0)
 {
 }
 

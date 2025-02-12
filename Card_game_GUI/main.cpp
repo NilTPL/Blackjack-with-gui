@@ -21,6 +21,7 @@ int main()
 	deck.shuffle();
 
 	Character player;
+	player.hand.pos = sf::Vector2f(10.f, 20.f);
 
 
 	sf::RectangleShape boxContainingButtons(sf::Vector2f(266, 200));
@@ -75,7 +76,7 @@ int main()
 						std::cout << "Hitting has bestowed upon you:  " << deck.currentCard().toString() << std::endl;
 						player.hand.grabCard(deck);
 						std::cout << "------- \n";
-						std::cout << "Your hand is now: ";
+						std::cout << "Your hand is now: \n ";
 						for (Card& card : player.hand.getHand())
 						{
 							std::cout << card.toString() << ", ";
@@ -104,7 +105,7 @@ int main()
 		for (int i = 0; i < player.hand.getHand().size(); i++)
 		{
 			Card& card = player.hand.getHand().at(i);
-			card.sprite.setPosition({(card.sprite.getLocalBounds().size.x / 2 * i ), 20.f});
+			card.sprite.setPosition(player.hand.pos + sf::Vector2f{(card.sprite.getLocalBounds().size.x / 2 * i), 20.f });
 			window.draw(card.sprite);
 		}
 
