@@ -17,4 +17,4 @@ private:
     std::vector<Card> hand;
 };
 
-#endif // DECK_H
+#endif // HAND_H
