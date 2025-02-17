@@ -10,9 +10,7 @@
 class Game {
 public:
     Game();
-
-    Character player;
-    Character dealer;
+    std::vector<Character> players;
     sf::RenderWindow window;
 
     std::string texturePath = "assets/textures/cards/cards.png";

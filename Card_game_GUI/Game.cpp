@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
 
-Game::Game() : player(),
-dealer(),
+Game::Game() :
 window(sf::VideoMode({ 800, 600 }), "Blackjack in C++", sf::Style::Titlebar | sf::Style::Close, sf::State::Windowed),
 deck(texturePath),
 boxContainingButtons(sf::Vector2f(266, 200)),
@@ -10,6 +9,9 @@ consolasFont("assets/fonts/Consolas.ttf"),
 hitButton("Hit", consolasFont),
 standButton("Stand", consolasFont)
 {
+	Character player;
+	Character dealer;
+
 	//Init irl objects (Deck, etc.)
 	deck.populate();
 	deck.shuffle();
@@ -18,7 +20,7 @@ standButton("Stand", consolasFont)
 	dealer.hand.pos = sf::Vector2f(10.f, 300.f);
 
 
-	;
+	
 	boxContainingButtons.setOrigin(boxContainingButtons.getLocalBounds().size + boxContainingButtons.getPosition());
 	boxContainingButtons.setPosition({ 800, 600 });
 	boxContainingButtons.setFillColor(sf::Color(30, 30, 30));

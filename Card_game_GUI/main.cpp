@@ -74,11 +74,14 @@ int main()
 		game.hitButton.drawTo(game.window);
 		game.standButton.drawTo(game.window);
 
-		for (int i = 0; i < game.player.hand.getHand().size(); i++)
+		for (Character& character : game.players)
 		{
-			Card& card = game.player.hand.getHand().at(i);
-			card.sprite.setPosition(game.player.hand.pos + sf::Vector2f{(card.sprite.getLocalBounds().size.x / 2 * i), 20.f });
-			game.window.draw(card.sprite);
+			for (int i = 0; i < character.hand.getHand().size(); i++)
+			{
+				Card& card = character.hand.getHand().at(i);
+				card.sprite.setPosition(character.hand.pos + sf::Vector2f{ (card.sprite.getLocalBounds().size.x / 2 * i), 20.f });
+				game.window.draw(card.sprite);
+			}
 		}
 
 		game.window.display();
