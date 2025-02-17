@@ -9,8 +9,11 @@ consolasFont("assets/fonts/Consolas.ttf"),
 hitButton("Hit", consolasFont),
 standButton("Stand", consolasFont)
 {
-	Character player;
-	Character dealer;
+	Character player("player", { 20, 600-164 });
+	Character dealer("dealer", { 10, 10 });
+	players.push_back(player);
+	players.push_back(dealer);
+
 
 	//Init irl objects (Deck, etc.)
 	deck.populate();

@@ -7,9 +7,10 @@
 class Character
 {
 public:
-	Character();
-
+	Character(std::string name, sf::Vector2f handpos);
 	Hand hand;
+	Hand& Hand();
+	std::string name;
 
 	~Character();
 private:

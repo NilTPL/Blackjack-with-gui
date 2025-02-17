@@ -3,7 +3,12 @@
 #include "character.h"
 
 
-Character::Character() : hand() {
+Character::Character(std::string name, sf::Vector2f handpos) : hand(handpos), name(name) {
+}
+
+Hand& Character::Hand()
+{
+	return hand;
 }
 
 Character::~Character()

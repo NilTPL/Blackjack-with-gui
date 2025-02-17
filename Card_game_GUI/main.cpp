@@ -43,19 +43,16 @@ int main()
 				{
 					if (game.hitButton.isMouseOver(game.window))
 					{
-						system("cls");
-						std::cout << "Hitting has bestowed upon you:  " << game.deck.currentCard().toString() << std::endl;
-						game.player.hand.grabCard(game.deck);
-						std::cout << "------- \n";
-						std::cout << "Your hand is now: \n ";
-						for (Card& card : game.player.hand.getHand())
+						for (Character& character : game.players)
 						{
-							std::cout << card.toString() << ", ";
+							if (character.name == "player") {
+								character.hand.grabCard(game.deck);
+							}
 						}
 					}
 					else if (game.standButton.isMouseOver(game.window))
 					{
-						std::cout << "Stand..." << std::endl;
+						std::cout << "stand";
 					}
 					else { std::cout << "mouse1 was pressed at position: " << mouseButtonPressed->position.x << " " << mouseButtonPressed->position.y << std::endl; }
 				}

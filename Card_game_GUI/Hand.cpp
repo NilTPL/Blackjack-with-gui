@@ -2,13 +2,13 @@
 #include "Card.h"
 #include "Deck.h"
 #include "Hand.h"
-
-Hand::Hand() : pos(0, 0)
+Hand::Hand(sf::Vector2f handpos) : pos(handpos)
 {
 }
 
 void Hand::grabCard(Deck& deck)
 {
+	
 	hand.emplace_back(deck.drawCard());
 }
 

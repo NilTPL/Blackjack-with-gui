@@ -8,6 +8,7 @@
 class Hand {
 public:
     Hand();
+    Hand(sf::Vector2f handpos);
 
     void grabCard(Deck& deck);
     std::vector<Card>& getHand();
